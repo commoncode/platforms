@@ -3,7 +3,9 @@ Platforms
 
 A Django app to do *multi-site platform resolution*.
 
-Add as a Git submodule called `platforms` to a Django project.
+Add as a Git submodule called `platforms` to a Django project:
+
+    git submodule add git@github.com:commoncode/platforms.git platforms
 
 ## Code
 
