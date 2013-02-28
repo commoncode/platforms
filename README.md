@@ -4,6 +4,8 @@ Platforms
 Multi-site platform resolution for Django
 
 
+## Code
+
 `models.py`:
 
     Platform(TitleMixin, SlugMixin)
@@ -18,7 +20,6 @@ Multi-site platform resolution for Django
 
         order
         # is_canonical
-
 
 `middleware.py`:
 
@@ -35,3 +36,24 @@ Multi-site platform resolution for Django
 + Add to `INSTALLED_APPS`
 + Add to `MIDDLEWARE`
 + Set `PLATFORMS_USE_PLATFORMS = True`
+
+
+## Platform Resolutions
+
+
+    platform = Platform.objects.get(slug='commoncode')
+    resolutions = Resolution.objects.filter(platform=platform)
+    print resolutions
+    >>> ['commoncode.io', 'commoncode.com.au' ]
+
+    # resolve the following Resolutions inbound by
+    # request.get_path()
+
+    path = request.get_path()
+    print path
+    >>> http://commoncode.io/some/url/
+
+    resolution = get_resolution(path)
+    print resolution.platform
+    >>> commoncode
+
