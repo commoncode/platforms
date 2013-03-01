@@ -38,8 +38,8 @@ class PlatformResolutionMiddleware(object):
         logger.debug(simple_res)
         # 1. URI path regex testing, first to match wins
         for res in simple_res:
-            if res.uripattern.strip() == '': continue
             logger.debug('Resolution: {} URI Pattern: {}'.format(res, res.uripattern))
+            if res.uripattern.strip() == '': continue
             if re.match(res.uripattern, request.path):
                 logger.debug('Platform is {}'.format(res.platform))
                 request.platform = res.platform
