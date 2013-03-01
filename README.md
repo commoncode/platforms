@@ -50,11 +50,11 @@ The `Host` header of the proxied request is used in the *Platform* resolution pr
     # resolve the following Resolutions inbound by
     # request.get_path()
 
-    >> path = request.get_path()
+    >>> path = request.get_path()
     >>> print path
     http://commoncode.io/some/url/
 
     >>> resolution = get_resolution(path)
     >>> print resolution.platform
-    commoncode
+    commoncode.com
 
