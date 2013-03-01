@@ -1,3 +1,9 @@
+from entropy.base import TitleMixin, SlugMixin
+
 from django.db import models
 
-# Create your models here.
+
+class Platform(TitleMixin, SlugMixin):
+    # title and short_title from TitleMixin
+    # slug from SlugMixin
+    pass
