@@ -9,6 +9,8 @@ class Platform(TitleMixin, SlugMixin):
     """
     # title and short_title from TitleMixin
     # slug from SlugMixin
+
+    # TODO add 'canonical' FK relationship to canonical Platform.
     pass
 
 
