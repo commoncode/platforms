@@ -34,18 +34,27 @@ class PlatformResolutionMiddleware(object):
         ## TODO, the algorithm for resolving to a single Platform is TBD.
         #
 
-        simple_res = Resolution.objects.filter(domain__endswith=http_host)
-        logger.debug(simple_res)
+        # 1. Hostname–only Platform Resolution
+        try:
+            hostonly_res = Resolution.objects.filter(domain__endswith=http_host,
+                                                     uripattern='')[0]
+            logger.debug('Host-only Resolution: {}'.format(hostonly_res))
+            logger.debug('Platform is {}'.format(hostonly_res.platform))
+            request.platform = hostonly_res.platform
+            return None
+        except IndexError:
+            logger.debug('No hostname-only Resolution for {}'.format(http_host))
 
-        # 1. URI path regex testing, first to match wins
+        # 2. URI path regex testing, first to match wins
+        simple_res = Resolution.objects.filter(domain__endswith=http_host,
+                                               uripattern__isnull=False)
+        logger.debug(simple_res)
         for res in simple_res:
             logger.debug('Resolution: {} URI Pattern: {}'.format(res, res.uripattern))
-            if res.uripattern.strip() == '': continue
             if re.match(res.uripattern, request.path):
                 logger.debug('Platform is {}'.format(res.platform))
                 request.platform = res.platform
                 return None
-        # 2. ???
         return None
 
     # will other methods be useful? process_view,
