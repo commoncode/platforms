@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from entropy.base import OrderingMixin, SlugMixin, TitleMixin
 
 from django.db import models
@@ -9,6 +10,12 @@ class Platform(TitleMixin, SlugMixin):
     # title and short_title from TitleMixin
     # slug from SlugMixin
     pass
+
+
+# class PlatformManager(models.Manager):
+#     """An object manager to be used by publishable objects.
+#     """
+#     pass
 
 
 class Resolution(OrderingMixin):

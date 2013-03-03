@@ -36,6 +36,7 @@ class PlatformResolutionMiddleware(object):
 
         simple_res = Resolution.objects.filter(domain__endswith=http_host)
         logger.debug(simple_res)
+
         # 1. URI path regex testing, first to match wins
         for res in simple_res:
             logger.debug('Resolution: {} URI Pattern: {}'.format(res, res.uripattern))
