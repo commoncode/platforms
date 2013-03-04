@@ -24,12 +24,17 @@ class PlatformObject(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey()
 
+    def __unicode__(self):
+        return self.platform.title
+
 
 class PlatformObjectManager(models.Manager):
     """An object manager to be used by publishable objects.
-
     """
     def platform(self, platform):
+        """Returns a QuerySet for the base Model, limited to ids of
+        instances related to the supplied Platform.
+        """
         ctype = ContentType.objects.get_for_model(self.model)
         return self.get_query_set().filter(
             id__in=PlatformObject.objects.filter(
