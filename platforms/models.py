@@ -2,6 +2,8 @@
 from entropy.base import OrderingMixin, SlugMixin, TitleMixin
 
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 class Platform(TitleMixin, SlugMixin):
@@ -14,10 +16,26 @@ class Platform(TitleMixin, SlugMixin):
     pass
 
 
-# class PlatformManager(models.Manager):
-#     """An object manager to be used by publishable objects.
-#     """
-#     pass
+class PlatformObject(models.Model):
+    """A Generic relation between objects and Platforms.
+    """
+    platform = models.ForeignKey(Platform)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey()
+
+
+class PlatformObjectManager(models.Manager):
+    """An object manager to be used by publishable objects.
+
+    """
+    def platform(self, platform):
+        ctype = ContentType.objects.get_for_model(self.model)
+        return self.get_query_set().filter(
+            id__in=PlatformObject.objects.filter(
+                platform=platform,
+                content_type=ctype
+            ).values_list('object_id', flat=True))
 
 
 class Resolution(OrderingMixin):
