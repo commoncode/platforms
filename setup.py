@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup( name='platforms',
-    version = '0.0.1',
+    version = '0.0.2',
     description = 'Platforms for Django',
-    author = 'Daryl Antony',
-    author_email = 'daryl@commoncode.com.au',
+    author = 'Mark Hellewell',
+    author_email = 'mark.hellewell@commoncode.com.au',
     url = 'https://github.com/commoncode/platforms',
     keywords = ['django',],
     packages = find_packages(),
