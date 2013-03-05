@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes import generic
 from .models import Platform, PlatformObject, Resolution
-from . import settings as platforms_settings
+from . import settings
 
 
 class PlatformObjectInline(generic.GenericTabularInline):
@@ -10,6 +10,6 @@ class PlatformObjectInline(generic.GenericTabularInline):
     verbose_name = 'Platform'
     verbose_name_plural = 'Platforms'
 
-if platforms_settings.USE_PLATFORMS:
-	admin.site.register(Platform)
-	admin.site.register(Resolution)
+if settings.USE_PLATFORMS:
+    admin.site.register(Platform)
+    admin.site.register(Resolution)

@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed
 
 from .models import Resolution
+from .settings import USE_PLATFORMS
 
 
 class PlatformResolutionMiddleware(object):
@@ -17,7 +18,7 @@ class PlatformResolutionMiddleware(object):
         """This middleware must be enabled, as well as included in
         MIDDLEWARE_CLASSES
         """
-        if not getattr(settings, 'PLATFORMS_USE_PLATFORMS', False):
+        if not USE_PLATFORMS:
             logger.debug('PLATFORMS_USE_PLATFORMS setting must be True to use this middleware')
             raise MiddlewareNotUsed
 
