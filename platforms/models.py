@@ -44,20 +44,6 @@ class PlatformObjectManager(models.Manager):
             ).values_list('object_id', flat=True))
 
 
-class PlatformObjectManagerMixin(object):
-    """A mixin to add PlatformObjectManager based on
-    user settings"""
-    def __init__(self, *args, **kwargs):
-        # Check to see if platforms is installed, and if it is,
-        # whether or not to use the platform object manager
-        try:
-            if settings.USE_PLATFORMS:
-                self.__class__.objects = PlatformObjectManager()
-        except NameError:
-            pass 
-        super(PlatformObjectManagerMixin, self).__init__(*args, **kwargs)
-
-
 class Resolution(OrderingMixin):
     """Different ways we might resolve to a Platform instance.
     """
