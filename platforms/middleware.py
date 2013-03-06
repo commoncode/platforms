@@ -42,6 +42,7 @@ class PlatformResolutionMiddleware(object):
             logger.debug('Host-only Resolution: {}'.format(hostonly_res))
             logger.debug('Platform is {}'.format(hostonly_res.platform))
             request.platform = hostonly_res.platform
+            request.META['PLATFORM_SLUG'] = request.platform.slug
             return None
         except IndexError:
             logger.debug('No hostname-only Resolution for {}'.format(http_host))
@@ -55,6 +56,7 @@ class PlatformResolutionMiddleware(object):
             if re.match(res.uripattern, request.path):
                 logger.debug('Platform is {}'.format(res.platform))
                 request.platform = res.platform
+                request.META['PLATFORM_SLUG'] = request.platform.slug
                 return None
         return None
 
