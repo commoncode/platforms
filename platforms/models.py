@@ -49,7 +49,8 @@ class Resolution(OrderingMixin):
     """
     # order from OrderingMixin
     platform = models.ForeignKey(Platform)
-    domain = models.CharField(max_length=255, blank=True)
+    domain = models.CharField(max_length=255, blank=True,
+        help_text="Start with . to match subdomains e.g. .domain.com to match this.domain.com and www.domain.com")
     subdomain = models.CharField(max_length=255, blank=True)
     uripattern = models.CharField(max_length=255, blank=True)
 

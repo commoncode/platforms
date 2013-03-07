@@ -35,6 +35,19 @@ class PlatformResolutionMiddleware(object):
         ## TODO, the algorithm for resolving to a single Platform is TBD.
         #
 
+        # 0. “wildcard” domain matching, blarg O(N) for Resolution
+        # domains starting with ‘.’
+        wildcard_res = Resolution.objects.filter(domain__startswith='.',
+                                                 uripattern='')
+        # FIXME not terribly efficient
+        for wild_res in wildcard_res:
+            if http_host.endswith(wild_res.domain):
+                logger.debug('Wildcard host-only Resolution: {}'.format(wild_res))
+                logger.debug('Platform is {}'.format(wild_res.platform))
+                request.platform = wild_res.platform
+                request.META['PLATFORM_SLUG'] = request.platform.slug
+                return None
+
         # 1. Hostname–only Platform Resolution
         try:
             hostonly_res = Resolution.objects.filter(domain__endswith=http_host,
