@@ -11,6 +11,10 @@ class PlatformObjectInline(generic.GenericTabularInline):
     verbose_name_plural = 'Platforms'
 
 
+class ResolutionAdmin(admin.ModelAdmin):
+    list_display = ('platform', 'domain',)
+
+
 if settings.USE_PLATFORMS:
     admin.site.register(Platform)
-    admin.site.register(Resolution)
+    admin.site.register(Resolution, ResolutionAdmin)
