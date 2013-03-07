@@ -36,8 +36,7 @@ class PlatformResolutionMiddleware(object):
         #
 
         # 0. “wildcard” domain matching, blarg O(N) for Resolution
-        # domains starting with ‘.’
-        # FIXME not terribly efficient
+        # domains starting with ‘.’. FIXME not terribly efficient.
         for wild_res in Resolution.objects.filter(domain__startswith='.',
                                                   uripattern=''):
             if http_host.endswith(wild_res.domain):
