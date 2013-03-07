@@ -37,10 +37,9 @@ class PlatformResolutionMiddleware(object):
 
         # 0. “wildcard” domain matching, blarg O(N) for Resolution
         # domains starting with ‘.’
-        wildcard_res = Resolution.objects.filter(domain__startswith='.',
-                                                 uripattern='')
         # FIXME not terribly efficient
-        for wild_res in wildcard_res:
+        for wild_res in Resolution.objects.filter(domain__startswith='.',
+                                                  uripattern=''):
             if http_host.endswith(wild_res.domain):
                 logger.debug('Wildcard host-only Resolution: {}'.format(wild_res))
                 logger.debug('Platform is {}'.format(wild_res.platform))
