@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.contenttypes import generic
+from entropy.admin import InlineAttributeAdmin
 from .models import Platform, PlatformObject, Resolution
 from . import settings
+
+
+class PlatformSetting(InlineAttributeAdmin):
+    verbose_name = "Platform Setting"
+    verbose_name_plural = verbose_name + 's'
 
 
 class PlatformObjectInline(generic.GenericTabularInline):
@@ -15,6 +21,10 @@ class ResolutionAdmin(admin.ModelAdmin):
     list_display = ('platform', 'domain',)
 
 
+class PlatformAdmin(admin.ModelAdmin):
+    inlines = [PlatformSetting]
+
+
 if settings.USE_PLATFORMS:
-    admin.site.register(Platform)
+    admin.site.register(Platform, PlatformAdmin)
     admin.site.register(Resolution, ResolutionAdmin)

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from entropy.base import OrderingMixin, SlugMixin, TitleMixin
+from entropy.base import OrderingMixin, SlugMixin, TitleMixin, AttributeMixin
 
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 
-class Platform(TitleMixin, SlugMixin):
+class Platform(TitleMixin, SlugMixin, AttributeMixin):
     """A platform.
     """
     # title and short_title from TitleMixin
