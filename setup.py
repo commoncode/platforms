@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup( name='platforms',
-    version = '0.0.2',
+    version = '0.0.3',
     description = 'Platforms for Django',
     author = 'Mark Hellewell',
     author_email = 'mark.hellewell@commoncode.com.au',
