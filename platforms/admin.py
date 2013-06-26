@@ -17,12 +17,16 @@ class PlatformObjectInline(generic.GenericTabularInline):
     verbose_name_plural = 'Platforms'
 
 
+class ResolutionInline(admin.TabularInline):
+    model = Resolution
+    extra = 1
+
 class ResolutionAdmin(admin.ModelAdmin):
     list_display = ('platform', 'domain',)
 
 
 class PlatformAdmin(admin.ModelAdmin):
-    inlines = [PlatformSetting]
+    inlines = [PlatformSetting, ResolutionInline]
 
 
 if settings.USE_PLATFORMS:
